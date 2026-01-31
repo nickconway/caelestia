@@ -20,7 +20,7 @@ Singleton {
     readonly property string notifimagecache: `${imagecache}/notifs`
     readonly property string wallsdir: Quickshell.env("CAELESTIA_WALLPAPERS_DIR") || absolutePath(Config.paths.wallpaperDir)
     readonly property string screenshotdir: Quickshell.env("CAELESTIA_SCREENSHOTS_DIR") || absolutePath(Config.paths.screenshotDir)
-    readonly property string recsdir: Quickshell.env("CAELESTIA_RECORDINGS_DIR") || `${videos}/Recordings`
+    readonly property string recsdir: Quickshell.env("CAELESTIA_RECORDINGS_DIR") || absolutePath(Config.paths.recDir)
     readonly property string libdir: Quickshell.env("CAELESTIA_LIB_DIR") || "/usr/lib/caelestia"
 
     function toLocalFile(path: url): string {

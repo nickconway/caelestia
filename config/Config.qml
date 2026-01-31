@@ -443,6 +443,7 @@ Singleton {
         return {
             wallpaperDir: paths.wallpaperDir,
             screenshotDir: paths.screenshotDir,
+            recDir: paths.recDir,
             sessionGif: paths.sessionGif,
             mediaGif: paths.mediaGif
         };

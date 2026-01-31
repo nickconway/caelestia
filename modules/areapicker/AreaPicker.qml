@@ -13,6 +13,7 @@ Scope {
         property bool freeze
         property bool closing
         property bool clipboardOnly
+        property bool pickOnly
 
         Variants {
             model: Quickshell.screens
@@ -54,6 +55,7 @@ Scope {
             root.closing = false;
             root.clipboardOnly = false;
             root.activeAsync = true;
+            root.pickOnly = false;
         }
 
         function openFreeze(): void {
@@ -61,6 +63,7 @@ Scope {
             root.closing = false;
             root.clipboardOnly = false;
             root.activeAsync = true;
+            root.pickOnly = false;
         }
 
         function openClip(): void {
@@ -68,6 +71,7 @@ Scope {
             root.closing = false;
             root.clipboardOnly = true;
             root.activeAsync = true;
+            root.pickOnly = false;
         }
 
         function openFreezeClip(): void {
@@ -75,6 +79,15 @@ Scope {
             root.closing = false;
             root.clipboardOnly = true;
             root.activeAsync = true;
+            root.pickOnly = false;
+        }
+
+        function pick(): void {
+            root.freeze = false;
+            root.closing = false;
+            root.clipboardOnly = false;
+            root.activeAsync = true;
+            root.pickOnly = true;
         }
     }
 
@@ -86,6 +99,7 @@ Scope {
             root.closing = false;
             root.clipboardOnly = false;
             root.activeAsync = true;
+            root.pickOnly = false;
         }
     }
 
@@ -97,6 +111,7 @@ Scope {
             root.closing = false;
             root.clipboardOnly = false;
             root.activeAsync = true;
+            root.pickOnly = false;
         }
     }
 
@@ -108,6 +123,7 @@ Scope {
             root.closing = false;
             root.clipboardOnly = true;
             root.activeAsync = true;
+            root.pickOnly = false;
         }
     }
 
@@ -119,6 +135,7 @@ Scope {
             root.closing = false;
             root.clipboardOnly = true;
             root.activeAsync = true;
+            root.pickOnly = false;
         }
     }
 }

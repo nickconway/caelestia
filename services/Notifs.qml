@@ -190,10 +190,10 @@ Singleton {
             running: true
             interval: notif.expireTimeout > 0 ? notif.expireTimeout : Config.notifs.defaultExpireTimeout
             onTriggered: {
-                if (Config.notifs.expire)
+                if (Config.notifs.expire && notif.urgency != NotificationUrgency.Critical)
                     notif.popup = false;
 
-                if (notif.isTransient)
+                if (notif.urgency != NotificationUrgency.Critical && notif.isTransient)
                     notif.close();
             }
         }

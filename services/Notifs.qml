@@ -51,6 +51,7 @@ Singleton {
                     urgency: n.urgency,
                     resident: n.resident,
                     transient: n.isTransient,
+                    key: n.key,
                     hasActionIcons: n.hasActionIcons,
                     actions: n.actions
                 }))))
@@ -82,6 +83,12 @@ Singleton {
                 popup: !props.dnd && ![...Visibilities.screens.values()].some(v => v.sidebar),
                 notification: notif
             });
+
+            if (notif.key !== "")
+                for (const n of root.list.slice())
+                    if (n.key === notif.key)
+                        n.close();
+
             root.list = [comp, ...root.list];
         }
     }
@@ -175,6 +182,7 @@ Singleton {
         property int urgency: NotificationUrgency.Normal
         property bool resident
         property bool isTransient
+        property string key
         property bool hasActionIcons
         property list<var> actions
 
@@ -283,6 +291,10 @@ Singleton {
                 notif.isTransient = notif.notification.transient;
             }
 
+            function onKeyChanged(): void {
+                notif.key = notif.notification.key;
+            }
+
             function onHasActionIconsChanged(): void {
                 notif.hasActionIcons = notif.notification.hasActionIcons;
             }
@@ -331,6 +343,7 @@ Singleton {
             urgency = notification.urgency;
             resident = notification.resident;
             isTransient = notification.transient;
+            key = notification.key;
             hasActionIcons = notification.hasActionIcons;
             actions = notification.actions.map(a => ({
                         identifier: a.identifier,

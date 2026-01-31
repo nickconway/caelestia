@@ -3,6 +3,7 @@ pragma ComponentBehavior: Bound
 import qs.components
 import qs.services
 import qs.config
+import qs.utils
 import Caelestia
 import Quickshell
 import Quickshell.Wayland
@@ -73,12 +74,22 @@ MouseArea {
 
     function save(): void {
         const tmpfile = Qt.resolvedUrl(`/tmp/caelestia-picker-${Quickshell.processId}-${Date.now()}.png`);
+
+        const imgpath = `${Paths.screenshotdir}/${Qt.formatDateTime(new Date(), "yyyy-MM-dd_hh-mm-ss")}.png`;
+        const imgfile = Qt.resolvedUrl(imgpath);
+
         CUtils.saveItem(screencopy, tmpfile, Qt.rect(Math.ceil(rsx), Math.ceil(rsy), Math.floor(sw), Math.floor(sh)), path => {
             if (root.loader.clipboardOnly) {
                 Quickshell.execDetached(["sh", "-c", "wl-copy --type image/png < " + path]);
                 Quickshell.execDetached(["notify-send", "-a", "caelestia-cli", "-i", path, "Screenshot taken", "Screenshot copied to clipboard"]);
             } else {
-                Quickshell.execDetached([...Config.general.apps.screenshot, "-f", path]);
+                if (CUtils.copyFile(tmpfile, imgfile)) {
+                    Quickshell.execDetached(["notify-send", "-a", "caelestia-shell", "-e", "-u", "low", "-h", `STRING:image-path:${imgpath}`, "Screenshot Taken", `Screenshot saved to ${Paths.shortenHome(imgpath)}`]);
+                    Quickshell.execDetached([...Config.general.apps.screenshot, "-f", imgpath]);
+                } else {
+                    Quickshell.execDetached(["notify-send", "-a", "caelestia-shell", "-u", "critical", "Unable to Save Screenshot", `Failed to save screenshot to ${Paths.shortenHome(imgpath)}`]);
+                    Quickshell.execDetached([...Config.general.apps.screenshot, "-f", path]);
+                }
             }
         });
         closeAnim.start();

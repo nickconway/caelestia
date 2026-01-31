@@ -47,10 +47,19 @@ StyledRect {
         acceptedButtons: Qt.LeftButton | Qt.MiddleButton
         preventStealing: true
 
-        onEntered: root.modelData.timer.stop()
+        onEntered: {
+            root.modelData.timer.stop();
+
+            if (Config.notifs.expandOnHover)
+                root.expanded = true;
+        }
+
         onExited: {
             if (!pressed)
                 root.modelData.timer.start();
+
+            if (Config.notifs.expandOnHover)
+                root.expanded = false;
         }
 
         drag.target: parent

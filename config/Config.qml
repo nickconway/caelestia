@@ -323,6 +323,7 @@ Singleton {
             clearThreshold: notifs.clearThreshold,
             expandThreshold: notifs.expandThreshold,
             actionOnClick: notifs.actionOnClick,
+            expandOnHover: notifs.expandOnHover,
             groupPreviewNum: notifs.groupPreviewNum,
             sizes: {
                 width: notifs.sizes.width,

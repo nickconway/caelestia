@@ -14,7 +14,7 @@ Singleton {
     id: root
 
     property list<Notif> list: []
-    readonly property list<Notif> notClosed: list.filter(n => !n.closed)
+    readonly property list<Notif> notClosed: list.filter(n => !n.closed && !n.isTransient)
     readonly property list<Notif> popups: list.filter(n => n.popup)
     property alias dnd: props.dnd
 
@@ -50,6 +50,7 @@ Singleton {
                     expireTimeout: n.expireTimeout,
                     urgency: n.urgency,
                     resident: n.resident,
+                    transient: n.isTransient,
                     hasActionIcons: n.hasActionIcons,
                     actions: n.actions
                 }))))
@@ -173,6 +174,7 @@ Singleton {
         property real expireTimeout: Config.notifs.defaultExpireTimeout
         property int urgency: NotificationUrgency.Normal
         property bool resident
+        property bool isTransient
         property bool hasActionIcons
         property list<var> actions
 
@@ -182,6 +184,9 @@ Singleton {
             onTriggered: {
                 if (Config.notifs.expire)
                     notif.popup = false;
+
+                if (notif.isTransient)
+                    notif.close();
             }
         }
 
@@ -274,6 +279,10 @@ Singleton {
                 notif.resident = notif.notification.resident;
             }
 
+            function onTransientChanged(): void {
+                notif.isTransient = notif.notification.transient;
+            }
+
             function onHasActionIconsChanged(): void {
                 notif.hasActionIcons = notif.notification.hasActionIcons;
             }
@@ -321,6 +330,7 @@ Singleton {
             expireTimeout = notification.expireTimeout;
             urgency = notification.urgency;
             resident = notification.resident;
+            isTransient = notification.transient;
             hasActionIcons = notification.hasActionIcons;
             actions = notification.actions.map(a => ({
                         identifier: a.identifier,

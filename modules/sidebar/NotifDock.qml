@@ -21,7 +21,10 @@ Item {
     anchors.fill: parent
     anchors.margins: Appearance.padding.normal
 
-    Component.onCompleted: Notifs.list.forEach(n => n.popup = false)
+    Component.onCompleted: {
+        Notifs.list.forEach(n => n.popup = false);
+        Notifs.list = Notifs.list.filter(n => !n.isTransient);
+    }
 
     Item {
         id: title

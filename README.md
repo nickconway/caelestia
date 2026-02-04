@@ -617,6 +617,7 @@ default, you must create it manually.
     "utilities": {
         "enabled": true,
         "maxToasts": 4,
+        "gameModeAutoKeepAwake": true,
         "toasts": {
             "audioInputChanged": true,
             "audioOutputChanged": true,

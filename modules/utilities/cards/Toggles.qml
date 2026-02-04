@@ -75,7 +75,12 @@ StyledRect {
             Toggle {
                 icon: "gamepad"
                 checked: GameMode.enabled
-                onClicked: GameMode.enabled = !GameMode.enabled
+                onClicked: {
+                    GameMode.enabled = !GameMode.enabled;
+
+                    if (Config.utilities.gameModeAutoKeepAwake)
+                        IdleInhibitor.enabled = GameMode.enabled;
+                }
             }
 
             Toggle {

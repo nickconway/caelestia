@@ -8,6 +8,8 @@ JsonObject {
     property Toasts toasts: Toasts {}
     property Vpn vpn: Vpn {}
 
+    property bool gameModeAutoKeepAwake: true
+
     component Sizes: JsonObject {
         property int width: 430
         property int toastWidth: 430

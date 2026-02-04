@@ -389,6 +389,7 @@ Singleton {
         return {
             enabled: utilities.enabled,
             maxToasts: utilities.maxToasts,
+            gameModeAutoKeepAwake: utilities.gameModeAutoKeepAwake,
             sizes: {
                 width: utilities.sizes.width,
                 toastWidth: utilities.sizes.toastWidth

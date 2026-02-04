@@ -62,6 +62,7 @@ class UtilitiesConfig : public ConfigObject {
             vmap({ { u"id"_s, u"dnd"_s }, { u"enabled"_s, true } }),
             vmap({ { u"id"_s, u"vpn"_s }, { u"enabled"_s, false } }),
         })
+    CONFIG_PROPERTY(bool, gameModeAutoKeepAwake, false)
 
 public:
     explicit UtilitiesConfig(QObject* parent = nullptr)

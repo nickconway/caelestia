@@ -743,6 +743,7 @@ For example, to disable the bar on DP-1:
     "utilities": {
         "enabled": true,
         "maxToasts": 4,
+        "gameModeAutoKeepAwake": true,
         "toasts": {
             "fullscreen": "off",
             "configLoaded": true,
